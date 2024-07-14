@@ -1,76 +1,101 @@
+:root {
+    --card-size: 10vw;
+    /* Default card size for larger screens */
+    --gap-size: 10px;
+    /* Gap size between cards */
+}
+
 body {
-    font-family: 'Roboto', sans-serif; 
-    background-color: #282c34; 
-    color: #ffffff; 
-    text-align: center;
+    font-family: Arial, sans-serif;
+    display: flex;
+    color: white;
+    flex-direction: column;
+    align-items: center;
+    background-color: #031063;
     margin: 0;
-    padding: 0;
+    padding: 10px;
+    min-height: 100vh;
+    font-size: 24px;
 }
 
-.container {
-    width: auto;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #3c404d; 
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25); 
-    border-radius: 15px; 
+#timer {
+    margin-bottom: 20px;
+    /* Add margin to separate timer from start button */
 }
 
-h1 {
-    color: white; 
+#game-container {
+    max-width: 95vw;
+    width: 100%;
+    margin: 0 auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.instructions {
-    font-size: 20px;
-    margin-bottom: 30px;
-    color: #adbac7;
+#start-game {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 24px;
+    text-align: center;
+}
+
+#start-game:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
 }
 
 #game-board {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-size), 1fr));
+    gap: var(--gap-size);
     justify-content: center;
-    padding: 20px;
-}
-
-.card {
-    width: 211.8px;
-    height: 166.2px;
-    background-color: #565c6f;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-grow: 1;
+    align-content: start;
     overflow: hidden;
+    /* Disable scrolling */
 }
 
-.card img {
+#game-board img {
     width: 100%;
     height: auto;
-    visibility: hidden; /* Hide images by default */
-    display: block;
-}
-
-.card.show img {
-    visibility: visible; /* Show image when card is flipped */
-}
-
-#start-game {
-    background-color: #4caf50;
-    color: white;
-    padding: 12px 24px;
-    border: none;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
     border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
     cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s, transform 0.3s;
 }
 
-#start-game:hover {
-    background-color: #43a047; /* Darker on hover */
-    transform: scale(1.05); /* Slightly enlarges on hover */
+#game-board img:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+     :root {
+        --card-size: calc((95vw - (5 * var(--gap-size))) / 4);
+        /* Adjust card size to fit 4 columns */
+    }
+}
+
+@media (max-width: 480px) {
+     :root {
+        --card-size: calc((95vw - (4 * var(--gap-size))) / 3);
+        /* Adjust card size to fit 3 columns */
+    }
+}
+
+
+/* Improved accessibility for focus states */
+
+#start-game:focus,
+#game-board img:focus {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
 }
